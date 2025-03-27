@@ -1,14 +1,33 @@
 # Identity Document Classification
 
-## Overview
-This project builds a simple machine learning model for classifying identity documents based on images. The model is trained on a dataset containing 10 different classes of identity documents from various countries. A React-based user interface allows users to upload images and receive predictions. All components are wrapped in a Docker Compose configuration for easy deployment.
+This project demonstrates how to build a simple machine learning model for classifying identity documents using SageMaker, TensorFlow, and Keras. The dataset consists of images representing various types of identity documents. This guide provides all the necessary steps to preprocess the dataset, train the model, evaluate its performance, and save the model.
+
+## Project Structure
+The project is organized as follows:
+
+- **SageMaker-Id-Classification/**
+  - **images.zip**: Dataset containing images of identity documents.
+  - **tmp/**: Temporary folder for extracted images.
+    - **dataset/images/**: Unzipped images dataset.
+  - **model.py**: Python script to build, train, and evaluate the model.
+  - **README.md**: Project documentation.
+
+## Requirements
 
 ## Features
-- Machine learning model for document classification
-- I for image submission and prediction
-- API for model inference
-- Docker Compose setup for seamless deployment
 
+The following libraries are required to run this project:
+
+- `boto3`
+- `sagemaker`
+- `numpy`
+- `tensorflow`
+- `scikit-learn`
+- `zipfile` (included in Python standard library)
+
+```bash
+pip install boto3 sagemaker tensorflow scikit-learn
+```
 ## Dataset
 The dataset (`images.zip`) contains images of identity documents, categorized into 10 classes:
 
@@ -22,22 +41,34 @@ The dataset (`images.zip`) contains images of identity documents, categorized in
 - **rus_internalpassport** - Internal passport of Russia
 - **srb_passport** - Passport of Serbia
 - **svk_id** - ID Card of Slovakia
+The dataset is provided as a ZIP file (images.zip) containing subfolders for each class, where each subfolder contains images representing the respective class.
 
-## Project Structure
-```
-identity_doc_classification/
-│── backend/                 # Machine learning model and API
-│   ├── model.py             # Model training and inference
-│   ├── app.py               # Flask/FastAPI application
-│   ├── requirements.txt     # Backend dependencies
-│── frontend/                # React-based user interface
-│   ├── src/
-│   ├── package.json         # Frontend dependencies
-│── docker-compose.yml       # Docker Compose setup
-│── Dockerfile.backend       # Backend Dockerfile
-│── Dockerfile.frontend      # Frontend Dockerfile
-│── README.md                # Project documentation
-```
+## Steps
+### Data Preprocessing
+
+- **Unzipping the dataset**: The dataset (`images.zip`) is extracted to a temporary directory.
+- **Image normalization**: All image pixel values are normalized by dividing by 255.0 to scale the values between 0 and 1.
+- **Data augmentation**: I use `ImageDataGenerator` from Keras for real-time augmentation to improve the model's generalization ability.
+
+### Model Building
+
+A Convolutional Neural Network (CNN) model is defined using Keras:
+
+- The model architecture consists of two convolutional layers, followed by max-pooling layers.
+- After flattening the output, a dense layer is used, and the final layer uses softmax activation to predict the class of each input image.
+
+### Model Training
+
+- The training dataset is divided into an 80% training set and a 20% validation set.
+- The model is trained for 10 epochs using the Adam optimizer and categorical crossentropy loss.
+
+### Model Evaluation
+
+After training, the model is evaluated using the validation set. I calculate and display the classification report, which includes metrics such as precision, recall, F1-score, and accuracy.
+
+### Model Saving
+
+Finally, the trained model is saved in Keras format (`.keras`), which can be loaded for future use or deployment.
 
 ## Installation and Setup
 ### Prerequisites
