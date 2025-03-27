@@ -3,9 +3,14 @@
 This project demonstrates how to build a simple machine learning model for classifying identity documents using SageMaker, TensorFlow, and Keras. The dataset consists of images representing various types of identity documents. This guide provides all the necessary steps to preprocess the dataset, train the model, evaluate its performance, and save the model.
 
 ## Project Structure
-SageMaker-Id-Classification/ │ ├── images.zip # Dataset containing images of identity documents ├── tmp/ # Temporary folder for extracted images │ └── dataset/
-│ └── images/ # Unzipped images dataset ├── model.py # Python script to build, train, and evaluate the model └── README.md
+The project is organized as follows:
 
+- **SageMaker-Id-Classification/**
+  - **images.zip**: Dataset containing images of identity documents.
+  - **tmp/**: Temporary folder for extracted images.
+    - **dataset/images/**: Unzipped images dataset.
+  - **model.py**: Python script to build, train, and evaluate the model.
+  - **README.md**: Project documentation.
 
 ## Requirements
 
