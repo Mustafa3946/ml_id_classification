@@ -15,12 +15,8 @@ The project is organized as follows:
 ## Requirements
 
 ## Features
-- Machine learning model for document classification
-- I for image submission and prediction
-- API for model inference
-- Docker Compose setup for seamless deployment
 
-he following libraries are required to run this project:
+The following libraries are required to run this project:
 
 - `boto3`
 - `sagemaker`
@@ -48,30 +44,31 @@ The dataset (`images.zip`) contains images of identity documents, categorized in
 The dataset is provided as a ZIP file (images.zip) containing subfolders for each class, where each subfolder contains images representing the respective class.
 
 ## Steps
-1. Data Preprocessing
-Unzipping the dataset: The dataset (images.zip) is extracted to a temporary directory.
+### Data Preprocessing
 
-Image normalization: All image pixel values are normalized by dividing by 255.0 to scale the values between 0 and 1.
+- **Unzipping the dataset**: The dataset (`images.zip`) is extracted to a temporary directory.
+- **Image normalization**: All image pixel values are normalized by dividing by 255.0 to scale the values between 0 and 1.
+- **Data augmentation**: I use `ImageDataGenerator` from Keras for real-time augmentation to improve the model's generalization ability.
 
-Data augmentation: We use ImageDataGenerator from Keras for real-time augmentation to improve the model's generalization ability.
+### Model Building
 
-2. Model Building
 A Convolutional Neural Network (CNN) model is defined using Keras:
 
-The model architecture consists of two convolutional layers, followed by max-pooling layers.
+- The model architecture consists of two convolutional layers, followed by max-pooling layers.
+- After flattening the output, a dense layer is used, and the final layer uses softmax activation to predict the class of each input image.
 
-After flattening the output, a dense layer is used, and the final layer uses softmax activation to predict the class of each input image.
+### Model Training
 
-3. Model Training
-The training dataset is divided into an 80% training set and a 20% validation set.
+- The training dataset is divided into an 80% training set and a 20% validation set.
+- The model is trained for 10 epochs using the Adam optimizer and categorical crossentropy loss.
 
-The model is trained for 10 epochs using the Adam optimizer and categorical crossentropy loss.
+### Model Evaluation
 
-4. Model Evaluation
-After training, the model is evaluated using the validation set. We calculate and display the classification report, which includes metrics such as precision, recall, F1-score, and accuracy.
+After training, the model is evaluated using the validation set. I calculate and display the classification report, which includes metrics such as precision, recall, F1-score, and accuracy.
 
-5. Model Saving
-Finally, the trained model is saved in Keras format (.keras), which can be loaded for future use or deployment.
+### Model Saving
+
+Finally, the trained model is saved in Keras format (`.keras`), which can be loaded for future use or deployment.
 
 ## Installation and Setup
 ### Prerequisites
