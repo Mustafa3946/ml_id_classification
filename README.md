@@ -68,51 +68,71 @@ After training, the model is evaluated using the validation set. I calculate and
 
 ### Model Saving
 
-Finally, the trained model is saved in Keras format (`.keras`), which can be loaded for future use or deployment.
+The trained model is saved in Keras format (`.keras`), which can be loaded for future use or deployment.
 
-## Installation and Setup
-### Prerequisites
-Ensure you have the following installed:
-- Docker
-- Docker Compose
-- Python 3.x (if running locally)
-- Node.js & npm (if running frontend locally)
 
-### Running with Docker Compose
-To start all services:
-```sh
+# Getting Started
+
+## Project Structure
+
+The project consists of the following components:
+
+- **Frontend**: A React application that allows users to upload images of documents.
+- **Backend**: A Flask API that serves the machine learning model to classify the documents.
+- **Machine Learning Model**: A TensorFlow model that classifies different types of ID documents.
+
+The code for these components is located in the following directories:
+
+- `frontend/`: The React frontend code.
+- `flask_backend/`: The Flask backend code and model.
+- `docker/`: Docker configuration files (including Dockerfiles and Docker Compose setup).
+
+### Step 1: Clone the repository
+
+```bash
+git clone https://github.com/Mustafa3946/ml_id_classification.git
+cd ml_id_classification
+```
+
+### Build the model using ml_id_classifier_tf.ipynb
+This will generate the document_classifier.keras model file in the root of the project directory.
+
+### Move the model to the backend folder
+After building the model, move it to the flask_backend/ folder:
+```bash
+mv document_classifier.keras flask_backend/
+```
+
+### Step 2: Build and Run the Services
+Build the Docker containers for both the frontend and backend services using Docker Compose:
+```bash
 docker-compose up --build
 ```
+This command will:
 
-### Running Locally (Without Docker)
-#### Backend Setup
-```sh
-cd backend
-pip install -r requirements.txt
-python app.py
+Build the frontend React application Docker container.
+
+Build the Flask backend Docker container.
+
+Set up the required networking between both services.
+
+The --build flag ensures that Docker rebuilds the containers if any changes were made to the Dockerfiles or the application code.
+
+### Step 3: Access the Application
+Once the services are running, open a web browser and navigate to the following URL:
+
+    http://13.211.17.108:3000/
+
+This will display the ID Document Classifier web interface where you can upload images.
+
+You should now be able to interact with the frontend, upload images of ID documents, and get predictions from the backend.
+
+### Step 4: Stopping the Services
+To stop the services, press CTRL + C in the terminal where you ran docker-compose up. Alternatively, you can run:
+```bash
+docker-compose down
 ```
-#### Frontend Setup
-```sh
-cd frontend
-npm install
-npm start
-```
+This will stop and remove the running containers, networks, and volumes defined in the docker-compose.yml file.
 
-## API Endpoints
-- `POST /predict` - Accepts an image file and returns the predicted document class.
-
-## Usage
-1. Start the application.
-2. Open the React UI in your browser.
-3. Upload an image of an identity document.
-4. View the predicted class returned by the model.
-
-## License
-This project is open-source and available under the MIT License.
-
-## Contributing
-Feel free to contribute by submitting issues or pull requests.
-
-## Contact
-For questions or support, open an issue in the repository.
-
+You can find Dockerfile for Backend in backend/Dockerfile.
+And, you can find Dockerfile for frontend Dockerfile for Frontend (frontend/Dockerfile)
