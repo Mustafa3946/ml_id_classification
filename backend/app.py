@@ -17,6 +17,10 @@ with open('class_names.json', 'r') as f:
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
+@app.route('/')
+def home():
+    return 'Welcome to the Document Classifier API!'
+
 @app.route('/predict', methods=['POST'])
 def predict():
     # Check if a file is in the request
