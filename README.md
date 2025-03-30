@@ -121,7 +121,7 @@ The --build flag ensures that Docker rebuilds the containers if any changes were
 ### Step 3: Access the Application
 Once the services are running, open a web browser and navigate to the following URL:
 
-    http://13.211.17.108:3000/
+    http://<public_ip>:3000/
 
 This will display the ID Document Classifier web interface where you can upload images.
 
