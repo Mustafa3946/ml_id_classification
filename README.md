@@ -68,18 +68,10 @@ After training, the model is evaluated using the validation set. I calculate and
 
 ### Model Saving
 
-Finally, the trained model is saved in Keras format (`.keras`), which can be loaded for future use or deployment.
+The trained model is saved in Keras format (`.keras`), which can be loaded for future use or deployment.
 
-# Dockerized Web Application
 
-This project consists of a **React frontend** that allows users to upload images of ID documents, and a **Flask backend** that serves a **TensorFlow model** to classify these images into different document types. The entire application is containerized using **Docker** and managed using **Docker Compose**.
-
-## Prerequisites
-
-Before you begin, ensure that you have the following installed on your system:
-
-- **Docker**: [Install Docker](https://docs.docker.com/get-docker/)
-- **Docker Compose**: [Install Docker Compose](https://docs.docker.com/compose/install/)
+# Getting Started
 
 ## Project Structure
 
@@ -95,12 +87,20 @@ The code for these components is located in the following directories:
 - `flask_backend/`: The Flask backend code and model.
 - `docker/`: Docker configuration files (including Dockerfiles and Docker Compose setup).
 
-## Getting Started
-
 ### Step 1: Clone the repository
 
 ```bash
 git clone https://github.com/Mustafa3946/ml_id_classification.git
+cd ml_id_classification
+```
+
+### Build the model using ml_id_classifier_tf.ipynb
+This will generate the document_classifier.keras model file in the root of the project directory.
+
+### Move the model to the backend folder
+After building the model, move it to the flask_backend/ folder:
+```bash
+mv document_classifier.keras flask_backend/
 ```
 
 ### Step 2: Build and Run the Services
